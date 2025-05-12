@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create D&D Character</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+  <h2>Create a D&D Character</h2>
+  <form id="characterForm">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" class="form-control" name="name" required>
+    </div>
+    <div class="form-group">
+      <label>Race</label>
+      <input type="text" class="form-control" name="race" required>
+    </div>
+    <div class="form-group">
+      <label>Class</label>
+      <input type="text" class="form-control" name="class" required>
+    </div>
+    <div class="form-group">
+      <label>Level</label>
+      <input type="number" class="form-control" name="level" min="1" value="1">
+    </div>
+    <div class="form-group">
+      <label>Strength</label>
+      <input type="number" class="form-control" name="strength" min="1" max="20">
+    </div>
+    <div class="form-group">
+      <label>Dexterity</label>
+      <input type="number" class="form-control" name="dexterity" min="1" max="20">
+    </div>
+    <!-- Add other stats as needed -->
+    <button type="submit" class="btn btn-primary">Save Character</button>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $('#characterForm').on('submit', function(e) {
+      e.preventDefault();
+      const data = $(this).serialize();
+      $.post('save_character.php', data, function(response) {
+        alert('Character saved!');
+        window.location.href = 'character-sheet.html?id=' + response.id;
+      }, 'json');
+    });
+  </script>
+</body>
+</html>
